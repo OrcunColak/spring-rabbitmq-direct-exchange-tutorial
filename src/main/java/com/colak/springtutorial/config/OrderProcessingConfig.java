@@ -3,6 +3,7 @@ package com.colak.springtutorial.config;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.ExchangeBuilder;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,16 @@ public class OrderProcessingConfig {
 
     @Bean
     public DirectExchange orderDirectExchange() {
-        return new DirectExchange(ORDER_DIRECT_EXCHANGE);
+        // Instead of "return new DirectExchange(ORDER_DIRECT_EXCHANGE);"
+        // use ExchangeBuilder
+
+        return ExchangeBuilder.directExchange(ORDER_DIRECT_EXCHANGE)
+                // durable means messages will survive broker restarts
+                .durable(true)
+                // the broker deletes the queue when the last consumer unsubscribes (i.e., it's not connected to any queues).
+                // If set to false, the exchange will persist even if it's not bound to any queues.
+                .autoDelete()
+                .build();
     }
 
     @Bean
