@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class OrderProcessingConfig {
 
     public static final String ORDER_DIRECT_EXCHANGE = "order-direct-exchange";
+
+    // Queues
     public static final String PAYMENT_QUEUE = "payment-queue";
     public static final String INVENTORY_QUEUE = "inventory-queue";
     public static final String SHIPPING_QUEUE = "shipping-queue";
